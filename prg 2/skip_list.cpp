@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <time.h>
 using namespace std;
 
 class Node
@@ -36,7 +37,7 @@ public:
     Node *createNode(int, int);
     void insertElement(int);
     void deleteElement(int);
-    void searchElement(int);
+    int searchElement(int);
     void displayList();
 };
 
@@ -119,7 +120,7 @@ void SkipList::deleteElement(int key)
     {
         while (current->forward[i] != NULL &&
                current->forward[i]->key < key)
-            current = current->forward[i];
+            current = current->forward[i]; //
         update[i] = current;
     }
 
@@ -143,22 +144,35 @@ void SkipList::deleteElement(int key)
         cout << "Successfully deleted key " << key << "\n";
     }
 };
-
-void SkipList::searchElement(int key)
+void delay(){
+        for(int i = 0; i < 500; i++){
+        for (int j = 0; j < 500; j++){
+            int k = 0;
+        }
+    }
+}
+int SkipList::searchElement(int key)
 {
     Node *current = header;
-
+    int count = 0;
+    clock_t start, end;
+    start = clock();
     for (int i = level; i >= 0; i--)
     {
-        while (current->forward[i] &&
-               current->forward[i]->key < key)
+        while (current->forward[i] && current->forward[i]->key < key){
             current = current->forward[i];
+            count++;
+            delay();
+        }
     }
+    count++;
+    end = clock();
+    cout <<"Time taken"<< (float)((end - start) / CLOCKS_PER_SEC)<<endl;
 
     current = current->forward[0];
-
     if (current and current->key == key)
         cout << "Found key: " << key << "\n";
+        return count;
 };
 
 void SkipList::displayList()
@@ -186,7 +200,7 @@ int main()
     SkipList lst(3, 0.5);
     while (1)
     {
-        cout << "Choose:\n1.Insert\t2.Delete\t3.Display\t4.Exit\n";
+        cout << "Choose:\n1.Insert\t2.Delete\t3.Display\t4.Search\t5.Exit\n";
         int key;
         cin >> key;
         switch (key)
@@ -205,6 +219,11 @@ int main()
             lst.displayList();
             break;
         case 4:
+            int num;
+            cin>>num;
+            cout<<"Count"<<lst.searchElement(num)<<endl;
+            break;
+        case 5:
             exit(0);
             break;
         }
