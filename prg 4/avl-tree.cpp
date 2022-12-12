@@ -67,20 +67,9 @@ int getBalance(Node *N)
 	return height(N->left) - height(N->right);
 }
 
-Node *insert(Node *node, int key)
+Node *construct(Node *node, int key)
 {
-	if (node == NULL)
-		return (newNode(key));
-
-	if (key < node->key)
-		node->left = insert(node->left, key);
-	else if (key > node->key)
-		node->right = insert(node->right, key);
-	else
-		return node;
-
 	node->height = 1 + max(height(node->left), height(node->right));
-
 	int balance = getBalance(node);
 
 	if (balance > 1 && key < node->left->key)
@@ -100,6 +89,23 @@ Node *insert(Node *node, int key)
 		node->right = rightRotate(node->right);
 		return leftRotate(node);
 	}
+
+	return node;
+}
+
+Node *insert(Node *node, int key)
+{
+	if (node == NULL)
+		return (newNode(key));
+
+	if (key < node->key)
+		node->left = insert(node->left, key);
+	else if (key > node->key)
+		node->right = insert(node->right, key);
+	else
+		return node;
+
+	node = construct(node, key);
 
 	return node;
 }
@@ -126,10 +132,6 @@ Node *deleteNode(Node *root, int key)
 	{
 		if ((root->left == NULL) || (root->right == NULL))
 		{
-			if (root->left)
-				cout << "True";
-			if (root->right)
-				cout << "True right";
 			Node *temp = root->left ? root->left : root->right;
 			if (temp == NULL)
 			{
@@ -151,26 +153,7 @@ Node *deleteNode(Node *root, int key)
 	if (root == NULL)
 		return root;
 
-	root->height = 1 + max(height(root->left), height(root->right));
-	int balance = getBalance(root);
-
-	if (balance > 1 && getBalance(root->left) >= 0)
-		return rightRotate(root);
-
-	if (balance > 1 && getBalance(root->left) < 0)
-	{
-		root->left = leftRotate(root->left);
-		return rightRotate(root);
-	}
-
-	if (balance < -1 && getBalance(root->right) <= 0)
-		return leftRotate(root);
-
-	if (balance < -1 && getBalance(root->right) > 0)
-	{
-		root->right = rightRotate(root->right);
-		return leftRotate(root);
-	}
+	root = construct(root, key);
 
 	return root;
 }
@@ -187,7 +170,7 @@ void preOrder(Node *root)
 
 void display(Node *root)
 {
-	cout << "\nPreorder traversal of the constructed AVL tree is \n";
+	cout << "Preorder: ";
 	preOrder(root);
 	cout << endl;
 }
@@ -197,7 +180,7 @@ int main()
 	Node *root = NULL;
 	while (1)
 	{
-		cout << "Choose:\n1.Insert\t2.Display\t3.Delete\t4.Exit\t";
+		cout << "Choose:\t1.Insert\t2.Display\t3.Delete\t4.Exit\t";
 		int key;
 		cin >> key;
 		switch (key)
