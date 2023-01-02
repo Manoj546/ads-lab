@@ -63,7 +63,7 @@ void BTreeNode::traverse()
 
         if (leaf == false)
             C[i]->traverse();
-        cout << " " << keys[i];
+        cout << " " << char(keys[i]);
     }
 
     if (leaf == false)
@@ -176,16 +176,43 @@ int main()
     cin >> degree;
     BTree t(degree);
 
+    // while (1)
+    // {
+    //     cout << "\nChoose:\t1.Insert\t2.Display\t3.Exit\t";
+    //     int key;
+    //     cin >> key;
+    //     switch (key)
+    //     {
+    //     case 1:
+    //         char s;
+    //         cout << "Insert: ";
+    //         cin >> s;
+    //         int ele;
+    //         ele=int(s);
+    //         t.insert(ele);
+    //         cout << "Traversal of tree constructed is";
+    //         t.traverse();
+    //         break;
+    //     case 2:
+    //         cout << "Traversal of tree constructed is";
+    //         t.traverse();
+    //         break;
+    //     case 3:
+    //         exit(0);
+    //         break;
+    //     }
+    // }
 
-
-    
-    cout << "Enter no of elements" << endl;
+    cout << "Enter no of elements" << endl; // 17
     cin >> n;
     cout << "Enter elements" << endl;
     for (int i = 0; i < n; i++)
     {
-        cin >> num;
-        t.insert(num);
+        char s;
+        cin >> s;
+        int ele;
+        ele = int(s);
+        t.insert(ele);
     }
 
     cout << "Traversal of the constucted tree is ";
