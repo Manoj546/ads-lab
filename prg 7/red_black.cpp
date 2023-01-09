@@ -24,10 +24,10 @@ void inorder(struct node *root)
 		int n = root->count;
 		string s;
 		if (n == 1){
-			s = "Black";
+			s = "red";
 		}
 		else if (n == 2)
-			s = "red";
+			s = "black";
 		else
 			s = "Black";
 		cout << root->key << "("
@@ -113,32 +113,34 @@ struct node *deleteNode(struct node *root, int key)
 int main()
 {
 	struct node *root = NULL;
-	root = insert(root, 12);
 	root = insert(root, 10);
-	root = insert(root, 20);
-	root = insert(root, 9);
-	root = insert(root, 11);
-	root = insert(root, 10);
-	root = insert(root, 12);
-	root = insert(root, 12);
+	root = insert(root, 18);
+	root = insert(root, 7);
+	root = insert(root, 15);
+	root = insert(root, 16);
+	root = insert(root, 30);
+	root = insert(root, 25);
+	root = insert(root, 40);
+	root = insert(root, 60);
+
 
 	cout << "Preorder traversal of the given tree "<< endl;
 	inorder(root);
 
-	cout << "\nDelete 20\n";
-	root = deleteNode(root, 20);
-	cout << "Preorder traversal of the modified tree \n";
-	inorder(root);
+	// cout << "\nDelete 20\n";
+	// root = deleteNode(root, 20);
+	// cout << "Preorder traversal of the modified tree \n";
+	// inorder(root);
 
-	cout << "\nDelete 12\n";
-	root = deleteNode(root, 12);
-	cout << "Preorder traversal of the modified tree \n";
-	inorder(root);
+	// cout << "\nDelete 12\n";
+	// root = deleteNode(root, 12);
+	// cout << "Preorder traversal of the modified tree \n";
+	// inorder(root);
 
-	cout << "\nDelete 9\n";
-	root = deleteNode(root, 9);
-	cout << "Preorder traversal of the modified tree \n";
-	inorder(root);
+	// cout << "\nDelete 9\n";
+	// root = deleteNode(root, 9);
+	// cout << "Preorder traversal of the modified tree \n";
+	// inorder(root);
 
 	return 0;
 }
