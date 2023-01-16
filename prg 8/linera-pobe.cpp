@@ -22,25 +22,24 @@ public:
 	void add(int v)
 	{
 		int x = hashFunction(v);
-		if (arr[x] == -9999)
-		{
-			arr[x] = v;
-			count++;
-		}
-		else
+		cout << "The x value:" << x << endl;
+		if (arr[x] != -9999)
 		{
 			// Linear Probing due to collision
-			for (int i = 0; i < size; i++)
+			int i = x + 1;
+			while (arr[i] != -9999)
 			{
-				if (arr[x] != -9999)
-				{
-					while (arr[x] == -9999)
-					{
-						x++;
-					}
-					arr[x] = v;
-				}
+				i += 1;
+				continue;
 			}
+			cout << i;
+			arr[i] = v;
+			count++;
+		}
+
+		else if (arr[x] == -9999)
+		{
+			arr[x] = v;
 			count++;
 		}
 	}
@@ -60,7 +59,8 @@ public:
 	}
 	void print()
 	{
-		cout << "Key"<< "  Value "<<endl;
+		cout << "Key"
+			 << "  Value " << endl;
 		for (int i = 0; i < size; i++)
 		{
 			cout << i << "  :  " << arr[i] << "\n";
@@ -93,6 +93,7 @@ int main()
 	ht.add(12);
 	ht.add(22);
 	ht.add(16);
+	ht.add(9);
 	ht.print();
 	return 0;
 }
